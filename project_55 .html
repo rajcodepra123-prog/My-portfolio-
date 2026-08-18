@@ -1,0 +1,4658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>project 55</title>
+  <style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
+body {
+    font-family: Arial, sans-serif;
+    min-height: 100vh;
+    padding: 30px 15px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #eef2ff,
+            #f8fafc
+        );
+
+    color: #1e293b;
+}
+
+
+.study-app {
+    width: 100%;
+    max-width: 850px;
+    margin: auto;
+}
+
+
+.app-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+
+.welcome-text,
+.section-label,
+.date-label {
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+    color: #64748b;
+}
+
+
+.app-header h1 {
+    font-size: 32px;
+    margin: 6px 0;
+}
+
+
+.subtitle {
+    color: #64748b;
+    font-size: 15px;
+}
+
+
+.theme-button {
+    width: 48px;
+    height: 48px;
+
+    border: none;
+    border-radius: 14px;
+
+    background: white;
+    font-size: 20px;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 8px 25px rgba(15, 23, 42, 0.08);
+
+    transition: 0.25s;
+}
+
+
+.theme-button:hover {
+    transform: translateY(-3px);
+}
+
+
+.date-card,
+.clock-card,
+.timer-card,
+.tasks-card,
+.progress-card {
+    background: rgba(255, 255, 255, 0.9);
+
+    border: 1px solid rgba(255, 255, 255, 0.8);
+
+    border-radius: 22px;
+
+    padding: 25px;
+
+    margin-bottom: 18px;
+
+    box-shadow:
+        0 15px 35px rgba(15, 23, 42, 0.07);
+}
+
+
+.date-card {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+
+.date-icon {
+    width: 50px;
+    height: 50px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 15px;
+
+    background: #eef2ff;
+
+    font-size: 24px;
+}
+
+
+.date-card h2 {
+    margin-top: 5px;
+    font-size: 20px;
+}
+
+
+.clock-card {
+    text-align: center;
+
+    background:
+        linear-gradient(
+            135deg,
+            #4f46e5,
+            #7c3aed
+        );
+
+    color: white;
+}
+
+
+.clock-card .section-label {
+    color: rgba(255,255,255,0.75);
+}
+
+
+.big-clock {
+    font-size: 58px;
+    font-weight: bold;
+    letter-spacing: 3px;
+    margin-top: 10px;
+}
+
+
+.card-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.card-heading h2 {
+    font-size: 22px;
+    margin-top: 5px;
+}
+
+
+.timer-icon,
+.task-icon {
+    width: 48px;
+    height: 48px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 14px;
+
+    background: #eef2ff;
+
+    font-size: 22px;
+}
+
+
+.timer-display {
+    text-align: center;
+
+    font-size: 64px;
+    font-weight: bold;
+
+    margin: 25px 0;
+
+    color: #4f46e5;
+}
+
+
+.timer-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+
+.timer-buttons button,
+#addTask {
+    border: none;
+    border-radius: 12px;
+
+    padding: 12px 18px;
+
+    font-size: 14px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.25s;
+}
+
+
+#startTimer {
+    background: #4f46e5;
+    color: white;
+}
+
+
+#pauseTimer {
+    background: #e2e8f0;
+    color: #334155;
+}
+
+
+#resetTimer {
+    background: #f1f5f9;
+    color: #475569;
+}
+
+
+.timer-buttons button:hover,
+#addTask:hover {
+    transform: translateY(-2px);
+}
+
+
+.task-input-area {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+
+#taskInput {
+    flex: 1;
+
+    padding: 13px 15px;
+
+    border: 1px solid #e2e8f0;
+
+    border-radius: 12px;
+
+    outline: none;
+
+    font-size: 14px;
+}
+
+
+#taskInput:focus {
+    border-color: #4f46e5;
+}
+
+
+#addTask {
+    background: #4f46e5;
+    color: white;
+}
+
+
+#taskList {
+    list-style: none;
+    margin-top: 18px;
+}
+
+
+#taskList li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 13px;
+
+    margin-bottom: 8px;
+
+    border-radius: 12px;
+
+    background: #f8fafc;
+}
+
+
+.progress-card {
+    margin-bottom: 25px;
+}
+
+
+#progressText {
+    font-size: 20px;
+    font-weight: bold;
+    color: #4f46e5;
+}
+
+
+.progress-track {
+    width: 100%;
+    height: 12px;
+
+    background: #e2e8f0;
+
+    border-radius: 20px;
+
+    overflow: hidden;
+
+    margin-top: 20px;
+}
+
+
+#progressFill {
+    width: 0%;
+    height: 100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            #4f46e5,
+            #8b5cf6
+        );
+
+    border-radius: 20px;
+
+    transition: width 0.4s ease;
+}
+
+
+.progress-message {
+    margin-top: 12px;
+
+    color: #64748b;
+
+    font-size: 13px;
+}
+
+
+.app-footer {
+    text-align: center;
+
+    color: #94a3b8;
+
+    font-size: 13px;
+
+    padding: 10px;
+}
+
+
+@media (max-width: 600px) {
+
+    body {
+        padding: 20px 12px;
+    }
+
+
+    .app-header h1 {
+        font-size: 25px;
+    }
+
+
+    .big-clock {
+        font-size: 38px;
+    }
+
+
+    .timer-display {
+        font-size: 48px;
+    }
+
+
+    .timer-buttons {
+        flex-direction: column;
+    }
+
+
+    .timer-buttons button {
+        width: 100%;
+    }
+
+
+    .task-input-area {
+        flex-direction: column;
+    }
+
+
+    #addTask {
+        width: 100%;
+    }
+
+}.sessions-card {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 22px;
+    padding: 25px;
+    margin-bottom: 18px;
+    text-align: center;
+    box-shadow:
+        0 15px 35px rgba(15, 23, 42, 0.07);
+}
+
+.sessions-card h2 {
+    margin-top: 5px;
+    font-size: 22px;
+}
+
+#sessionCount {
+    font-size: 42px;
+    font-weight: bold;
+    color: #4f46e5;
+    margin: 15px 0 5px;
+}
+
+.sessions-card p:last-child {
+    color: #64748b;
+    font-size: 13px;
+}.timer-status {
+    text-align: center;
+    margin-top: 12px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #64748b;
+}
+
+.timer-status.study {
+    color: #4f46e5;
+}
+
+.timer-status.break {
+    color: #16a34a;
+}
+
+.timer-status.paused {
+    color: #f59e0b;
+}.goal-card {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 22px;
+    padding: 25px;
+    margin-bottom: 18px;
+    box-shadow:
+        0 15px 35px rgba(15, 23, 42, 0.07);
+}
+
+.goal-card h2 {
+    margin-top: 6px;
+    font-size: 21px;
+}
+
+#goalProgress {
+    margin-top: 10px;
+    color: #64748b;
+    font-size: 14px;
+}body.dark-mode {
+    background: #0f172a;
+    color: #e2e8f0;
+}
+
+body.dark-mode .date-card,
+body.dark-mode .timer-card,
+body.dark-mode .tasks-card,
+body.dark-mode .progress-card,
+body.dark-mode .sessions-card,
+body.dark-mode .goal-card {
+    background: #1e293b;
+    border-color: #334155;
+}
+
+body.dark-mode .subtitle,
+body.dark-mode .progress-message,
+body.dark-mode .sessions-card p,
+body.dark-mode #goalProgress {
+    color: #94a3b8;
+}
+
+body.dark-mode #taskList li {
+    background: #334155;
+}
+
+body.dark-mode #taskInput {
+    background: #0f172a;
+    color: #e2e8f0;
+    border-color: #475569;
+}
+
+body.dark-mode .theme-button {
+    background: #1e293b;
+    color: white;
+}.streak-card {
+    background: linear-gradient(
+        135deg,
+        #fff7ed,
+        #ffedd5
+    );
+
+    border-radius: 22px;
+
+    padding: 25px;
+
+    margin-bottom: 18px;
+
+    box-shadow:
+        0 15px 35px rgba(15, 23, 42, 0.07);
+}
+
+.streak-content {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    margin-top: 12px;
+}
+
+.streak-icon {
+    width: 55px;
+    height: 55px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 16px;
+
+    background: white;
+
+    font-size: 28px;
+}
+
+#streakCount {
+    font-size: 32px;
+    margin: 0;
+}
+
+.streak-content p {
+    margin-top: 3px;
+    color: #64748b;
+    font-size: 13px;
+}
+
+body.dark-mode .streak-card {
+    background: #3b2a1a;
+}
+
+body.dark-mode .streak-icon {
+    background: #1e293b;
+}.score-card {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 22px;
+    padding: 25px;
+    margin-bottom: 18px;
+
+    box-shadow:
+        0 15px 35px rgba(15, 23, 42, 0.07);
+}
+
+.score-content {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin-top: 15px;
+}
+
+#focusScore {
+    width: 75px;
+    height: 75px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #eef2ff;
+
+    color: #4f46e5;
+
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.score-content h2 {
+    font-size: 19px;
+}
+
+#scoreMessage {
+    margin-top: 5px;
+    color: #64748b;
+    font-size: 13px;
+}
+
+body.dark-mode .score-card {
+    background: #1e293b;
+}
+
+body.dark-mode #focusScore {
+    background: #312e81;
+    color: white;
+}.motivation-card {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    padding: 22px;
+
+    margin-bottom: 18px;
+
+    border-radius: 22px;
+
+    background: linear-gradient(
+        135deg,
+        #eef2ff,
+        #f5f3ff
+    );
+
+    box-shadow:
+        0 15px 35px rgba(15, 23, 42, 0.07);
+}
+
+.motivation-icon {
+    width: 50px;
+    height: 50px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 15px;
+
+    background: white;
+
+    font-size: 24px;
+}
+
+#motivationText {
+    margin-top: 6px;
+
+    font-size: 15px;
+
+    font-weight: 600;
+
+    line-height: 1.5;
+}
+
+body.dark-mode .motivation-card {
+    background: #27245a;
+}
+
+body.dark-mode .motivation-icon {
+    background: #1e293b;
+}.tip-card {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    padding: 22px;
+    margin-bottom: 18px;
+
+    border-radius: 22px;
+
+    background: linear-gradient(
+        135deg,
+        #ecfdf5,
+        #f0fdf4
+    );
+
+    box-shadow:
+        0 15px 35px rgba(15, 23, 42, 0.07);
+}
+
+.tip-icon {
+    width: 50px;
+    height: 50px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 15px;
+
+    background: white;
+
+    font-size: 24px;
+}
+
+#studyTip {
+    margin-top: 6px;
+
+    font-size: 14px;
+
+    line-height: 1.5;
+
+    color: #475569;
+}
+
+body.dark-mode .tip-card {
+    background: #16352a;
+}
+
+body.dark-mode .tip-icon {
+    background: #1e293b;
+}
+
+body.dark-mode #studyTip {
+    color: #cbd5e1;
+}@media (max-width: 600px) {
+
+    body {
+        padding: 15px 10px;
+    }
+
+    .study-app {
+        width: 100%;
+    }
+
+    .app-header {
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .app-header h1 {
+        font-size: 24px;
+        line-height: 1.25;
+    }
+
+    .subtitle {
+        font-size: 13px;
+    }
+
+    .theme-button {
+        width: 44px;
+        height: 44px;
+        flex-shrink: 0;
+    }
+
+    .date-card,
+    .clock-card,
+    .timer-card,
+    .tasks-card,
+    .progress-card,
+    .sessions-card,
+    .goal-card,
+    .streak-card,
+    .score-card,
+    .motivation-card,
+    .tip-card {
+        padding: 18px;
+        border-radius: 18px;
+    }
+
+    .big-clock {
+        font-size: 34px;
+        letter-spacing: 1px;
+    }
+
+    .timer-display {
+        font-size: 48px;
+        margin: 20px 0;
+    }
+
+    .timer-buttons {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .timer-buttons button {
+        width: 100%;
+    }
+
+    .task-input-area {
+        flex-direction: column;
+    }
+
+    #taskInput,
+    #addTask {
+        width: 100%;
+    }
+
+    #taskList li {
+        gap: 10px;
+        padding: 12px 10px;
+    }
+
+    .score-content {
+        gap: 12px;
+    }
+
+    #focusScore {
+        width: 65px;
+        height: 65px;
+        flex-shrink: 0;
+    }
+
+    .motivation-card,
+    .tip-card {
+        align-items: flex-start;
+    }
+
+}
+
+
+@media (min-width: 601px) and (max-width: 900px) {
+
+    .study-app {
+        max-width: 720px;
+    }
+
+    .big-clock {
+        font-size: 50px;
+    }
+
+}
+
+
+@media (min-width: 901px) {
+
+    .study-app {
+        max-width: 850px;
+    }
+
+    .date-card,
+    .clock-card,
+    .timer-card,
+    .tasks-card,
+    .progress-card,
+    .sessions-card,
+    .goal-card,
+    .streak-card,
+    .score-card,
+    .motivation-card,
+    .tip-card {
+        transition:
+            transform 0.25s ease,
+            box-shadow 0.25s ease;
+    }
+
+    .date-card:hover,
+    .timer-card:hover,
+    .tasks-card:hover,
+    .progress-card:hover,
+    .sessions-card:hover,
+    .goal-card:hover,
+    .streak-card:hover,
+    .score-card:hover,
+    .motivation-card:hover,
+    .tip-card:hover {
+        transform: translateY(-3px);
+
+        box-shadow:
+            0 20px 40px rgba(15, 23, 42, 0.10);
+    }
+
+}.custom-time-card {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 22px;
+    padding: 25px;
+    margin-bottom: 18px;
+
+    box-shadow:
+        0 15px 35px rgba(15, 23, 42, 0.07);
+}
+
+.custom-time-card h2 {
+    margin-top: 6px;
+    font-size: 21px;
+}
+
+.custom-time-controls {
+    display: flex;
+    gap: 10px;
+    margin-top: 18px;
+}
+
+#customStudyMinutes {
+    flex: 1;
+
+    padding: 12px 14px;
+
+    border: 1px solid #e2e8f0;
+
+    border-radius: 12px;
+
+    outline: none;
+
+    font-size: 15px;
+}
+
+#customStudyMinutes:focus {
+    border-color: #4f46e5;
+}
+
+#setStudyTime {
+    border: none;
+
+    padding: 12px 18px;
+
+    border-radius: 12px;
+
+    background: #4f46e5;
+
+    color: white;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+#setStudyTime:hover {
+    transform: translateY(-2px);
+}
+
+#customTimeMessage {
+    margin-top: 12px;
+
+    color: #64748b;
+
+    font-size: 13px;
+}
+
+body.dark-mode .custom-time-card {
+    background: #1e293b;
+}
+
+body.dark-mode #customStudyMinutes {
+    background: #0f172a;
+    color: #e2e8f0;
+    border-color: #475569;
+}.break-time-card {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 22px;
+    padding: 25px;
+    margin-bottom: 18px;
+
+    box-shadow:
+        0 15px 35px rgba(15, 23, 42, 0.07);
+}
+
+.break-time-card h2 {
+    margin-top: 6px;
+    font-size: 21px;
+}
+
+.break-time-controls {
+    display: flex;
+    gap: 10px;
+    margin-top: 18px;
+}
+
+#customBreakMinutes {
+    flex: 1;
+
+    padding: 12px 14px;
+
+    border: 1px solid #e2e8f0;
+
+    border-radius: 12px;
+
+    outline: none;
+
+    font-size: 15px;
+}
+
+#customBreakMinutes:focus {
+    border-color: #4f46e5;
+}
+
+#setBreakTime {
+    border: none;
+
+    padding: 12px 18px;
+
+    border-radius: 12px;
+
+    background: #16a34a;
+
+    color: white;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+#setBreakTime:hover {
+    transform: translateY(-2px);
+}
+
+#breakTimeMessage {
+    margin-top: 12px;
+
+    color: #64748b;
+
+    font-size: 13px;
+}
+
+body.dark-mode .break-time-card {
+    background: #1e293b;
+}
+
+body.dark-mode #customBreakMinutes {
+    background: #0f172a;
+    color: #e2e8f0;
+    border-color: #475569;
+}.clear-completed-button {
+    width: 100%;
+    margin-top: 12px;
+    padding: 12px 16px;
+
+    border: none;
+    border-radius: 12px;
+
+    background: #fee2e2;
+    color: #b91c1c;
+
+    font-size: 14px;
+    font-weight: bold;
+
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.clear-completed-button:hover {
+    transform: translateY(-2px);
+    background: #fecaca;
+}
+
+body.dark-mode .clear-completed-button {
+    background: #450a0a;
+    color: #fecaca;
+}.priority-settings {
+    margin-top: 10px;
+}
+
+#taskPriority {
+    width: 100%;
+    padding: 11px 12px;
+
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+
+    background: white;
+    color: #334155;
+
+    font-size: 14px;
+    outline: none;
+}
+
+#taskPriority:focus {
+    border-color: #4f46e5;
+}
+
+body.dark-mode #taskPriority {
+    background: #0f172a;
+    color: #e2e8f0;
+    border-color: #475569;
+}.task-priority-badge {
+    display: inline-block;
+
+    margin-left: 8px;
+
+    padding: 4px 8px;
+
+    border-radius: 8px;
+
+    background: #f1f5f9;
+
+    color: #475569;
+
+    font-size: 11px;
+
+    font-weight: bold;
+
+    white-space: nowrap;
+}
+
+
+body.dark-mode .task-priority-badge {
+    background: #475569;
+    color: #f8fafc;
+}.weekly-stats-card {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 22px;
+    padding: 25px;
+    margin-bottom: 18px;
+
+    box-shadow:
+        0 15px 35px rgba(15, 23, 42, 0.07);
+}
+
+.weekly-stats-card h2 {
+    margin-top: 6px;
+    font-size: 21px;
+}
+
+.weekly-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-top: 18px;
+}
+
+.weekly-stat {
+    text-align: center;
+    padding: 18px 10px;
+    border-radius: 16px;
+    background: #f8fafc;
+}
+
+.weekly-stat span {
+    display: block;
+    font-size: 22px;
+    margin-bottom: 8px;
+}
+
+.weekly-stat strong {
+    display: block;
+    font-size: 24px;
+    color: #4f46e5;
+}
+
+.weekly-stat small {
+    display: block;
+    margin-top: 5px;
+    color: #64748b;
+    font-size: 11px;
+}
+
+body.dark-mode .weekly-stats-card {
+    background: #1e293b;
+}
+
+body.dark-mode .weekly-stat {
+    background: #334155;
+}
+
+body.dark-mode .weekly-stat small {
+    color: #cbd5e1;
+}
+
+@media (max-width: 600px) {
+
+    .weekly-stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+}.progress-stats-card {
+    background: rgba(255, 255, 255, 0.9);
+
+    border-radius: 22px;
+
+    padding: 25px;
+
+    margin-bottom: 18px;
+
+    box-shadow:
+        0 15px 35px rgba(15, 23, 42, 0.07);
+}
+
+.progress-stats-card h2 {
+    margin-top: 6px;
+
+    font-size: 21px;
+}
+
+.progress-stat-row {
+    margin-top: 20px;
+}
+
+.progress-stat-info {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 8px;
+}
+
+.progress-stat-info span {
+    color: #64748b;
+
+    font-size: 13px;
+}
+
+.progress-stat-info strong {
+    font-size: 15px;
+}
+
+.progress-stat-bar {
+    width: 100%;
+
+    height: 9px;
+
+    border-radius: 20px;
+
+    overflow: hidden;
+
+    background: #e2e8f0;
+}
+
+.progress-stat-fill {
+    width: 0%;
+
+    height: 100%;
+
+    border-radius: 20px;
+
+    background: #4f46e5;
+
+    transition:
+        width 0.5s ease;
+}
+
+.progress-stat-fill.remaining {
+    background: #94a3b8;
+}
+
+.progress-stat-total {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-top: 25px;
+
+    padding-top: 18px;
+
+    border-top: 1px solid #e2e8f0;
+}
+
+.progress-stat-total span {
+    color: #64748b;
+
+    font-size: 13px;
+}
+
+.progress-stat-total strong {
+    color: #4f46e5;
+
+    font-size: 22px;
+}
+
+body.dark-mode .progress-stats-card {
+    background: #1e293b;
+}
+
+body.dark-mode .progress-stat-info span,
+body.dark-mode .progress-stat-total span {
+    color: #cbd5e1;
+}
+
+body.dark-mode .progress-stat-bar {
+    background: #475569;
+}
+
+body.dark-mode .progress-stat-total {
+    border-color: #475569;
+}/* =================================
+   STEP 27 — SMOOTH ANIMATIONS
+   ================================= */
+
+/* Cards appear smoothly */
+
+.date-card,
+.clock-card,
+.timer-card,
+.tasks-card,
+.progress-card,
+.sessions-card,
+.goal-card,
+.streak-card,
+.score-card,
+.motivation-card,
+.tip-card,
+.weekly-stats-card,
+.progress-stats-card,
+.custom-time-card,
+.break-time-card {
+    animation: cardAppear 0.6s ease both;
+}
+
+
+/* Card entrance animation */
+
+@keyframes cardAppear {
+
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+
+/* Buttons */
+
+button {
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        opacity 0.2s ease;
+}
+
+
+button:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 8px 18px rgba(15, 23, 42, 0.12);
+}
+
+
+button:active {
+    transform: scale(0.96);
+}
+
+
+/* Task items */
+
+#taskList li {
+    transition:
+        transform 0.25s ease,
+        opacity 0.25s ease,
+        background 0.25s ease;
+}
+
+
+#taskList li:hover {
+    transform: translateX(4px);
+}
+
+
+/* Task priority badge */
+
+.task-priority-badge {
+    transition:
+        transform 0.2s ease;
+}
+
+
+.task-priority-badge:hover {
+    transform: scale(1.05);
+}
+
+
+/* Progress bars */
+
+.progress-stat-fill {
+    transition:
+        width 0.6s cubic-bezier(
+            0.22,
+            1,
+            0.36,
+            1
+        );
+}
+
+
+/* Focus score */
+
+#focusScore {
+    transition:
+        transform 0.4s ease,
+        background 0.4s ease;
+}
+
+
+#focusScore:hover {
+    transform: scale(1.08);
+}
+
+
+/* Streak icon */
+
+.streak-icon {
+    transition:
+        transform 0.3s ease;
+}
+
+
+.streak-icon:hover {
+    transform:
+        scale(1.1)
+        rotate(5deg);
+}
+
+
+/* Motivation and tip icons */
+
+.motivation-icon,
+.tip-icon {
+    transition:
+        transform 0.3s ease;
+}
+
+
+.motivation-card:hover
+.motivation-icon,
+.tip-card:hover
+.tip-icon {
+    transform:
+        scale(1.1)
+        rotate(-5deg);
+}
+
+
+/* Timer */
+
+#timer {
+    transition:
+        transform 0.3s ease;
+}
+
+
+/* Timer status */
+
+.timer-status {
+    transition:
+        color 0.3s ease,
+        opacity 0.3s ease;
+}
+
+
+/* Dark mode transition */
+
+body,
+.date-card,
+.clock-card,
+.timer-card,
+.tasks-card,
+.progress-card,
+.sessions-card,
+.goal-card,
+.streak-card,
+.score-card,
+.motivation-card,
+.tip-card,
+.weekly-stats-card,
+.progress-stats-card,
+.custom-time-card,
+.break-time-card,
+#taskList li,
+#taskInput,
+#taskPriority {
+    transition:
+        background 0.3s ease,
+        background-color 0.3s ease,
+        color 0.3s ease,
+        border-color 0.3s ease;
+}
+
+
+/* Mobile */
+
+@media (max-width: 600px) {
+
+    #taskList li:hover {
+        transform: none;
+    }
+
+    button:hover {
+        transform: none;
+    }
+
+}/* =================================
+   EXTRA POLISH ANIMATIONS
+   ================================= */
+
+/* Gentle floating effect for important cards */
+
+.timer-card {
+    animation:
+        cardAppear 0.6s ease both,
+        gentleFloat 5s ease-in-out infinite;
+}
+
+@keyframes gentleFloat {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-3px);
+    }
+
+}
+
+
+/* Animated timer glow */
+
+#timer {
+    animation: timerGlow 3s ease-in-out infinite;
+}
+
+@keyframes timerGlow {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.82;
+    }
+
+}
+
+
+/* Make the focus score gently pulse */
+
+#focusScore {
+    animation: scorePulse 3s ease-in-out infinite;
+}
+
+@keyframes scorePulse {
+
+    0%,
+    100% {
+        box-shadow:
+            0 0 0 rgba(79, 70, 229, 0);
+    }
+
+    50% {
+        box-shadow:
+            0 0 18px rgba(79, 70, 229, 0.18);
+    }
+
+}
+
+
+/* Gentle flame animation */
+
+.streak-icon {
+    animation: flameMove 2s ease-in-out infinite;
+}
+
+@keyframes flameMove {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.08);
+    }
+
+}
+
+
+/* Animate the daily motivation icon */
+
+.motivation-icon {
+    animation: lightPulse 3s ease-in-out infinite;
+}
+
+@keyframes lightPulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.06);
+    }
+
+}
+
+
+/* Study tip icon */
+
+.tip-icon {
+    animation: tipFloat 3s ease-in-out infinite;
+}
+
+@keyframes tipFloat {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-4px);
+    }
+
+}
+
+
+/* Priority badges */
+
+.task-priority-badge {
+    animation: badgeAppear 0.4s ease both;
+}
+
+@keyframes badgeAppear {
+
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+}
+
+
+/* Respect reduced-motion settings */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+}.task-filter-card {
+    background: rgba(255, 255, 255, 0.9);
+
+    border-radius: 22px;
+
+    padding: 22px;
+
+    margin-bottom: 18px;
+
+    box-shadow:
+        0 15px 35px rgba(15, 23, 42, 0.07);
+}
+
+#taskSearch,
+#taskFilter {
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding: 12px 14px;
+
+    margin-top: 10px;
+
+    border: 1px solid #e2e8f0;
+
+    border-radius: 12px;
+
+    background: white;
+
+    color: #334155;
+
+    font-size: 14px;
+
+    outline: none;
+}
+
+#taskSearch:focus,
+#taskFilter:focus {
+    border-color: #4f46e5;
+}
+
+body.dark-mode .task-filter-card {
+    background: #1e293b;
+}
+
+body.dark-mode #taskSearch,
+body.dark-mode #taskFilter {
+    background: #0f172a;
+
+    color: #e2e8f0;
+
+    border-color: #475569;
+}/* =========================================
+   STEP 32 — FINAL VISUAL POLISH
+   ========================================= */
+
+.study-app {
+    position: relative;
+    overflow: hidden;
+}
+
+
+/* Soft background glow */
+
+.study-app::before {
+    content: "";
+
+    position: absolute;
+
+    width: 260px;
+    height: 260px;
+
+    top: -120px;
+    right: -120px;
+
+    border-radius: 50%;
+
+    background: rgba(79, 70, 229, 0.08);
+
+    pointer-events: none;
+
+    filter: blur(5px);
+}
+
+
+/* Better section spacing */
+
+.study-app > section {
+    position: relative;
+
+    z-index: 1;
+}
+
+
+/* Consistent heading spacing */
+
+.study-app h2 {
+    letter-spacing: -0.3px;
+}
+
+
+/* Improve input appearance */
+
+input,
+select,
+button {
+    font-family: inherit;
+}
+
+
+/* Better focus accessibility */
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+    outline: 3px solid rgba(79, 70, 229, 0.25);
+
+    outline-offset: 2px;
+}
+
+
+/* Smooth task completion */
+
+#taskList li.completed {
+    opacity: 0.65;
+
+    transition:
+        opacity 0.3s ease,
+        transform 0.3s ease;
+}
+
+
+/* Completed task text */
+
+#taskList li.completed span {
+    text-decoration: line-through;
+}
+
+
+/* Better progress statistics */
+
+.progress-stats-card,
+.weekly-stats-card,
+.daily-goal-ring-card {
+    overflow: hidden;
+}
+
+
+/* Improve cards on larger screens */
+
+@media (min-width: 901px) {
+
+    .study-app > section {
+        position: relative;
+    }
+
+}
+
+
+/* Mobile cleanup */
+
+@media (max-width: 600px) {
+
+    .study-app {
+        overflow: visible;
+    }
+
+    .study-app::before {
+        width: 180px;
+        height: 180px;
+
+        top: -80px;
+        right: -80px;
+    }
+
+    .study-app h2 {
+        font-size: 19px;
+    }
+
+}/* =========================================
+   PROJECT 4 — FINAL CLEANUP
+   ========================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    overflow-x: hidden;
+}
+
+button,
+input,
+select {
+    -webkit-tap-highlight-color: transparent;
+}
+
+button {
+    user-select: none;
+}
+
+::selection {
+    background: rgba(79, 70, 229, 0.18);
+}
+
+
+/* Prevent animation problems on small screens */
+
+@media (max-width: 600px) {
+
+    .timer-card {
+        animation:
+            cardAppear 0.6s ease both;
+    }
+
+}
+  </style>
+</head>
+<body>
+<div class="study-app">
+
+    <header class="app-header">
+
+        <div>
+            <p class="welcome-text">WELCOME BACK 👋</p>
+
+            <h1>Smart Study Dashboard</h1>
+
+            <p class="subtitle">
+                Focus better. Study smarter.
+            </p>
+        </div>
+
+        <button id="themeButton" class="theme-button">
+            🌙
+        </button>
+
+    </header>
+
+
+    <section class="date-card">
+
+        <div class="date-icon">
+            📅
+        </div>
+
+        <div>
+            <p class="date-label">TODAY</p>
+
+            <h2 id="todayDate">
+                Loading date...
+            </h2>
+        </div>
+
+    </section>
+
+
+    <section class="clock-card">
+
+        <p class="section-label">
+            CURRENT TIME
+        </p>
+
+        <div id="studyClock" class="big-clock">
+            00:00:00
+        </div>
+
+    </section>
+
+
+    <section class="timer-card">
+
+        <div class="card-heading">
+
+            <div>
+                <p class="section-label">
+                    FOCUS SESSION
+                </p>
+
+                <h2>Study Timer</h2>
+            </div>
+
+            <div class="timer-icon">
+                ⏱️
+            </div>
+
+        </div>
+
+<section class="custom-time-card">
+
+    <p class="section-label">
+        TIMER SETTINGS
+    </p>
+
+    <h2>Choose Study Time</h2>
+
+    <div class="custom-time-controls">
+
+        <input
+            type="number"
+            id="customStudyMinutes"
+            min="1"
+            max="180"
+            value="25"
+            placeholder="Minutes"
+        >
+
+        <button id="setStudyTime">
+            Set Time
+        </button>
+
+    </div>
+
+    <p id="customTimeMessage">
+        Study time: 25 minutes
+    </p>
+
+</section> 
+<section class="break-time-card">
+
+    <p class="section-label">
+        BREAK SETTINGS
+    </p>
+
+    <h2>Choose Break Time</h2>
+
+    <div class="break-time-controls">
+
+        <input
+            type="number"
+            id="customBreakMinutes"
+            min="1"
+            max="60"
+            value="5"
+            placeholder="Minutes"
+        >
+
+        <button id="setBreakTime">
+            Set Break
+        </button>
+
+    </div>
+
+    <p id="breakTimeMessage">
+        Break time: 5 minutes
+    </p>
+
+</section>
+       <div id="timer" class="timer-display">
+            25:00
+        </div>
+
+
+        <div class="timer-buttons">
+
+            <button id="startTimer">
+                ▶ Start
+            </button>
+
+            <button id="pauseTimer">
+                ⏸ Pause
+            </button>
+
+            <button id="resetTimer">
+                ↻ Reset
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <section class="tasks-card">
+
+        <div class="card-heading">
+
+            <div>
+                <p class="section-label">
+                    PRODUCTIVITY
+                </p>
+
+                <h2>Today's Tasks</h2>
+            </div>
+
+            <div class="task-icon">
+                ✓
+            </div>
+
+        </div>
+
+
+        <div class="task-input-area">
+
+            <input
+                type="text"
+                id="taskInput"
+                placeholder="What do you need to study?"
+            >
+
+            <button id="addTask">
+                + Add
+            </button>
+<div class="priority-settings">
+
+    <select id="taskPriority">
+
+        <option value="high">
+            🔴 High Priority
+        </option>
+
+        <option value="medium" selected>
+            🟡 Medium Priority
+        </option>
+
+        <option value="low">
+            🟢 Low Priority
+        </option>
+
+    </select>
+
+</div><button id="clearCompletedTasks" class="clear-completed-button">
+    🧹 Clear Completed Tasks
+</button>
+
+        </div>
+
+
+        <ul id="taskList"></ul>
+
+    </section>
+
+
+    <section class="progress-card">
+
+        <div class="card-heading">
+
+            <div>
+                <p class="section-label">
+                    YOUR PROGRESS
+                </p>
+
+                <h2>Today's Progress</h2>
+            </div>
+
+            <div id="progressText">
+                0%
+            </div>
+
+        </div>
+
+
+        <div class="progress-track">
+
+            <div id="progressFill">
+            </div>
+
+        </div>
+
+        <p class="progress-message">
+            Keep going! Every focused session counts.
+        </p>
+
+    </section>
+
+
+    <footer class="app-footer">
+
+<section class="sessions-card">
+
+    <p class="section-label">
+        FOCUS HISTORY
+    </p>
+
+    <h2>Study Sessions</h2>
+
+    <div id="sessionCount">
+        0
+    </div>
+
+    <p>
+        Sessions completed today
+    </p>
+
+</section>
+<p>
+            Study smarter • Stay focused • Keep improving 🚀
+        </p>
+<p id="timerStatus" class="timer-status">
+    Ready to study
+</p>
+<section class="goal-card">
+
+    <p class="section-label">
+        DAILY GOAL
+    </p>
+
+    <h2>Complete 5 Study Tasks</h2>
+
+    <p id="goalProgress">
+        0 of 5 tasks completed
+    </p>
+<section class="streak-card">
+
+    <p class="section-label">
+        FOCUS STREAK
+    </p>
+
+    <div class="streak-content">
+
+        <div class="streak-icon">
+            🔥
+        </div>
+
+        <div>
+            <h2 id="streakCount">
+                0
+            </h2>
+
+            <p>
+                Study sessions completed
+            </p>
+        </div>
+
+    </div>
+
+</section>
+<section class="score-card">
+
+    <p class="section-label">
+        FOCUS SCORE
+    </p>
+
+    <div class="score-content">
+
+        <div id="focusScore">
+            0
+        </div>
+
+        <div>
+            <h2>Today's Focus</h2>
+
+            <p id="scoreMessage">
+                Start completing tasks to improve your score.
+            </p>
+        </div>
+
+    </div>
+
+</section>
+<section class="motivation-card">
+
+    <div class="motivation-icon">
+        💡
+    </div>
+
+    <div>
+        <p class="section-label">
+            DAILY MOTIVATION
+        </p>
+
+        <p id="motivationText">
+            Loading motivation...
+        </p>
+    </div>
+
+</section>
+<section class="tip-card">
+
+    <div class="tip-icon">
+        📖
+    </div>
+
+    <div>
+        <p class="section-label">
+            STUDY TIP
+        </p>
+
+        <p id="studyTip">
+            Loading study tip...
+        </p>
+    </div>
+
+</section>
+<section class="weekly-stats-card">
+
+    <p class="section-label">
+        WEEKLY STATISTICS
+    </p>
+
+    <h2>Your Study Week</h2>
+
+    <div class="weekly-stats-grid">
+
+        <div class="weekly-stat">
+            <span>📚</span>
+            <strong id="weeklySessions">0</strong>
+            <small>Study Sessions</small>
+        </div>
+
+        <div class="weekly-stat">
+            <span>✅</span>
+            <strong id="weeklyTasks">0</strong>
+            <small>Tasks Completed</small>
+        </div>
+
+        <div class="weekly-stat">
+            <span>🎯</span>
+            <strong id="weeklyProgress">0%</strong>
+            <small>Task Progress</small>
+        </div>
+
+    </div>
+
+</section>  
+<section class="progress-stats-card">
+
+    <p class="section-label">
+        PROGRESS STATISTICS
+    </p>
+
+    <h2>Task Overview</h2>
+
+    <div class="progress-stat-row">
+
+        <div class="progress-stat-info">
+            <span>Completed</span>
+            <strong id="completedTaskStat">
+                0
+            </strong>
+        </div>
+
+        <div class="progress-stat-bar">
+            <div
+                id="completedTaskBar"
+                class="progress-stat-fill"
+            ></div>
+        </div>
+
+    </div>
+
+
+    <div class="progress-stat-row">
+
+        <div class="progress-stat-info">
+            <span>Remaining</span>
+            <strong id="remainingTaskStat">
+                0
+            </strong>
+        </div>
+
+        <div class="progress-stat-bar">
+            <div
+                id="remainingTaskBar"
+                class="progress-stat-fill remaining"
+            ></div>
+        </div>
+
+    </div>
+
+
+    <div class="progress-stat-total">
+
+        <span>Overall Completion</span>
+
+        <strong id="overallTaskPercentage">
+            0%
+        </strong>
+
+    </div>
+
+</section>
+<section class="task-filter-card">
+
+    <p class="section-label">
+        FIND TASKS
+    </p>
+
+    <input
+        type="text"
+        id="taskSearch"
+        placeholder="🔍 Search your tasks..."
+    >
+
+    <select id="taskFilter">
+
+        <option value="all">
+            All Tasks
+        </option>
+
+        <option value="high">
+            🔴 High Priority
+        </option>
+
+        <option value="medium">
+            🟡 Medium Priority
+        </option>
+
+        <option value="low">
+            🟢 Low Priority
+        </option>
+
+        <option value="completed">
+            ✅ Completed
+        </option>
+
+    </select>
+
+</section></footer>
+
+</div>
+  <script>
+function updateStudyClock() {
+
+    var now = new Date();
+
+
+    var hours = now.getHours();
+    var minutes = now.getMinutes();
+    var seconds = now.getSeconds();
+
+
+    if (hours < 10) {
+        hours = "0" + hours;
+    }
+
+    if (minutes < 10) {
+        minutes = "0" + minutes;
+    }
+
+    if (seconds < 10) {
+        seconds = "0" + seconds;
+    }
+
+
+    var time =
+        hours + ":" +
+        minutes + ":" +
+        seconds;
+
+
+    var clock =
+        document.getElementById("studyClock");
+
+
+    if (clock) {
+        clock.textContent = time;
+    }
+
+
+    var date =
+        document.getElementById("todayDate");
+
+
+    if (date) {
+
+        date.textContent =
+            now.toLocaleDateString(
+                "en-US",
+                {
+                    weekday: "long",
+                    day: "numeric",
+                    month: "long",
+                    year: "numeric"
+                }
+            );
+
+    }
+
+}
+
+
+updateStudyClock();
+
+
+setInterval(
+    updateStudyClock,
+    1000
+);var studyTime = 25 * 60;
+var breakTime = 5 * 60;
+
+var currentTime = studyTime;
+
+var isBreak = false;
+var timerRunning = false;
+var studyInterval = null;
+
+
+function updateTimerDisplay() {
+
+    var minutes =
+        Math.floor(currentTime / 60);
+
+    var seconds =
+        currentTime % 60;
+
+
+    if (minutes < 10) {
+        minutes = "0" + minutes;
+    }
+
+    if (seconds < 10) {
+        seconds = "0" + seconds;
+    }
+
+
+    var timer =
+        document.getElementById("timer");
+
+
+    if (timer) {
+
+        timer.textContent =
+            minutes + ":" + seconds;
+
+    }
+}
+
+
+function updateTimerMode() {
+
+    var heading =
+        document.querySelector(
+            ".timer-card h2"
+        );
+
+
+    if (heading) {
+
+        heading.textContent =
+            isBreak
+            ? "Break Time ☕"
+            : "Study Timer 📚";
+
+    }
+}
+
+
+function startSmartTimer() {
+
+    if (timerRunning) {
+        return;
+    }
+
+
+    timerRunning = true;
+
+
+    studyInterval =
+        setInterval(function() {
+
+            if (currentTime > 0) {
+
+                currentTime--;
+
+                updateTimerDisplay();
+
+            } else {
+
+                clearInterval(
+                    studyInterval
+                );
+
+                studyInterval = null;
+
+                timerRunning = false;
+
+
+                if (isBreak) {
+
+                    alert(
+                        "☕ Break finished! Time to study."
+                    );
+
+                    isBreak = false;
+
+                    currentTime = studyTime;
+
+                } else {
+
+                    alert(
+                        "🎉 Study session complete! Take a break."
+                    );
+
+                    isBreak = true;
+
+                    currentTime = breakTime;
+
+                }
+
+
+                updateTimerMode();
+
+                updateTimerDisplay();
+
+            }
+
+        }, 1000);
+}
+
+
+function pauseSmartTimer() {
+
+    clearInterval(
+        studyInterval
+    );
+
+    studyInterval = null;
+
+    timerRunning = false;
+}
+
+
+function resetSmartTimer() {
+
+    clearInterval(
+        studyInterval
+    );
+
+    studyInterval = null;
+
+    timerRunning = false;
+
+    isBreak = false;
+
+    currentTime = studyTime;
+
+    updateTimerMode();
+
+    updateTimerDisplay();
+}
+
+
+var smartStartButton =
+    document.getElementById("startTimer");
+
+var smartPauseButton =
+    document.getElementById("pauseTimer");
+
+var smartResetButton =
+    document.getElementById("resetTimer");
+
+
+if (smartStartButton) {
+
+    smartStartButton.onclick =
+        startSmartTimer;
+}
+
+
+if (smartPauseButton) {
+
+    smartPauseButton.onclick =
+        pauseSmartTimer;
+}
+
+
+if (smartResetButton) {
+
+    smartResetButton.onclick =
+        resetSmartTimer;
+}
+
+
+updateTimerMode();
+
+updateTimerDisplay();var studyTasks = [];
+
+
+function renderStudyTasks() {
+
+    var taskList =
+        document.getElementById("taskList");
+
+
+    if (!taskList) {
+        return;
+    }
+
+
+    taskList.innerHTML = "";
+
+
+    for (
+        var i = 0;
+        i < studyTasks.length;
+        i++
+    ) {
+
+        var task =
+            studyTasks[i];
+
+
+        var li =
+            document.createElement("li");
+
+
+        var taskLeft =
+            document.createElement("span");
+
+
+        var taskText =
+            document.createElement("span");
+
+
+        taskText.textContent =
+            task.text;
+
+
+        if (task.completed) {
+
+            taskText.style.textDecoration =
+                "line-through";
+
+            taskText.style.opacity =
+                "0.5";
+
+        }
+
+
+        taskLeft.appendChild(
+            taskText
+        );
+
+
+        var completeButton =
+            document.createElement("button");
+
+
+        completeButton.textContent =
+            task.completed
+            ? "↩"
+            : "✓";
+
+
+        completeButton.onclick =
+            (function(index) {
+
+                return function() {
+
+                    studyTasks[index].completed =
+                        !studyTasks[index].completed;
+
+                    renderStudyTasks();
+
+                };
+
+            })(i);
+
+
+        var deleteButton =
+            document.createElement("button");
+
+
+        deleteButton.textContent =
+            "🗑️";
+
+
+        deleteButton.onclick =
+            (function(index) {
+
+                return function() {
+
+                    studyTasks.splice(
+                        index,
+                        1
+                    );
+
+                    renderStudyTasks();
+
+                };
+
+            })(i);
+
+
+        var buttons =
+            document.createElement("span");
+
+
+        buttons.appendChild(
+            completeButton
+        );
+
+        buttons.appendChild(
+            deleteButton
+        );
+
+
+        taskLeft.style.flex = "1";
+
+
+        li.appendChild(
+            taskLeft
+        );
+
+        li.appendChild(
+            buttons
+        );
+
+
+        taskList.appendChild(
+            li
+        );
+
+    }
+
+}
+
+
+var taskInput =
+    document.getElementById("taskInput");
+
+
+var addTaskButton =
+    document.getElementById("addTask");
+
+
+if (addTaskButton) {
+
+    addTaskButton.onclick =
+        function() {
+
+            var text =
+                taskInput.value.trim();
+
+
+            if (text === "") {
+
+                return;
+
+            }
+
+
+            studyTasks.push({
+
+                text: text,
+
+                completed: false
+
+            });
+
+
+            taskInput.value = "";
+
+
+            renderStudyTasks();
+
+        };
+
+}
+
+
+if (taskInput) {
+
+    taskInput.addEventListener(
+        "keydown",
+        function(event) {
+
+            if (event.key === "Enter") {
+
+                event.preventDefault();
+
+                if (addTaskButton) {
+
+                    addTaskButton.click();
+
+                }
+
+            }
+
+        }
+    );
+
+}
+
+
+renderStudyTasks();function updateStudyProgress() {
+
+    var progressFill =
+        document.getElementById("progressFill");
+
+    var progressText =
+        document.getElementById("progressText");
+
+
+    if (!progressFill ||
+        !progressText) {
+
+        return;
+    }
+
+
+    if (studyTasks.length === 0) {
+
+        progressFill.style.width =
+            "0%";
+
+        progressText.textContent =
+            "0%";
+
+        return;
+    }
+
+
+    var completedTasks = 0;
+
+
+    for (
+        var i = 0;
+        i < studyTasks.length;
+        i++
+    ) {
+
+        if (studyTasks[i].completed) {
+
+            completedTasks++;
+
+        }
+
+    }
+
+
+    var percentage =
+        Math.round(
+            (completedTasks /
+            studyTasks.length) * 100
+        );
+
+
+    progressFill.style.width =
+        percentage + "%";
+
+
+    progressText.textContent =
+        percentage + "%";
+
+}if (typeof renderStudyTasks === "function") {
+
+    var originalRenderStudyTasks =
+        renderStudyTasks;
+
+
+    renderStudyTasks =
+        function() {
+
+            originalRenderStudyTasks();
+
+            updateStudyProgress();
+
+        };
+
+}
+
+
+updateStudyProgress();var completedStudySessions = 0;
+
+
+function updateSessionCount() {
+
+    var sessionCount =
+        document.getElementById(
+            "sessionCount"
+        );
+
+
+    if (sessionCount) {
+
+        sessionCount.textContent =
+            completedStudySessions;
+
+    }
+
+}
+
+
+function countCompletedStudySession() {
+
+    completedStudySessions++;
+
+    updateSessionCount();
+
+}
+
+
+updateSessionCount();function finishStudySession() {
+
+    completedStudySessions++;
+
+    updateSessionCount();
+
+}var studyTime = 25 * 60;
+var breakTime = 5 * 60;
+
+var currentTime = studyTime;
+
+var isBreak = false;
+var timerRunning = false;
+var smartTimerInterval = null;
+
+
+function updateSmartTimerDisplay() {
+
+    var minutes =
+        Math.floor(currentTime / 60);
+
+    var seconds =
+        currentTime % 60;
+
+
+    if (minutes < 10) {
+        minutes = "0" + minutes;
+    }
+
+    if (seconds < 10) {
+        seconds = "0" + seconds;
+    }
+
+
+    var timer =
+        document.getElementById("timer");
+
+
+    if (timer) {
+
+        timer.textContent =
+            minutes + ":" + seconds;
+
+    }
+}
+
+
+function updateSmartTimerMode() {
+
+    var heading =
+        document.querySelector(
+            ".timer-card h2"
+        );
+
+
+    if (heading) {
+
+        heading.textContent =
+            isBreak
+            ? "Break Time ☕"
+            : "Study Timer 📚";
+
+    }
+
+}
+
+
+function startSmartStudyTimer() {
+
+    if (timerRunning) {
+        return;
+    }
+
+
+    timerRunning = true;
+
+
+    smartTimerInterval =
+        setInterval(function() {
+
+            if (currentTime > 0) {
+
+                currentTime--;
+
+                updateSmartTimerDisplay();
+
+            } else {
+
+                clearInterval(
+                    smartTimerInterval
+                );
+
+                smartTimerInterval = null;
+
+                timerRunning = false;
+
+
+                if (!isBreak) {
+
+                    completedStudySessions++;
+
+                    updateSessionCount();
+
+
+                    alert(
+                        "🎉 Study session complete!"
+                    );
+
+
+                    isBreak = true;
+
+                    currentTime = breakTime;
+
+                } else {
+
+                    alert(
+                        "☕ Break finished! Time to study."
+                    );
+
+
+                    isBreak = false;
+
+                    currentTime = studyTime;
+
+                }
+
+
+                updateSmartTimerMode();
+
+                updateSmartTimerDisplay();
+
+            }
+
+        }, 1000);
+
+}
+
+
+function pauseSmartStudyTimer() {
+
+    clearInterval(
+        smartTimerInterval
+    );
+
+    smartTimerInterval = null;
+
+    timerRunning = false;
+
+}
+
+
+function resetSmartStudyTimer() {
+
+    clearInterval(
+        smartTimerInterval
+    );
+
+    smartTimerInterval = null;
+
+    timerRunning = false;
+
+    isBreak = false;
+
+    currentTime = studyTime;
+
+    updateSmartTimerMode();
+
+    updateSmartTimerDisplay();
+
+}
+
+
+var startStudyButton =
+    document.getElementById("startTimer");
+
+var pauseStudyButton =
+    document.getElementById("pauseTimer");
+
+var resetStudyButton =
+    document.getElementById("resetTimer");
+
+
+if (startStudyButton) {
+
+    startStudyButton.onclick =
+        startSmartStudyTimer;
+
+}
+
+
+if (pauseStudyButton) {
+
+    pauseStudyButton.onclick =
+        pauseSmartStudyTimer;
+
+}
+
+
+if (resetStudyButton) {
+
+    resetStudyButton.onclick =
+        resetSmartStudyTimer;
+
+}
+
+
+updateSmartTimerMode();
+
+updateSmartTimerDisplay();function updateTimerStatus() {
+
+    var status =
+        document.getElementById(
+            "timerStatus"
+        );
+
+
+    if (!status) {
+        return;
+    }
+
+
+    status.className =
+        "timer-status";
+
+
+    if (timerRunning) {
+
+        if (isBreak) {
+
+            status.textContent =
+                "☕ Break time — relax and recharge";
+
+            status.classList.add(
+                "break"
+            );
+
+        } else {
+
+            status.textContent =
+                "📚 Study mode — stay focused";
+
+            status.classList.add(
+                "study"
+            );
+
+        }
+
+    } else {
+
+        status.textContent =
+            "⏸ Timer paused";
+
+        status.classList.add(
+            "paused"
+        );
+
+    }
+
+}
+
+
+updateTimerStatus();function refreshTimerStatus() {
+
+    var status =
+        document.getElementById("timerStatus");
+
+    if (!status) {
+        return;
+    }
+
+    status.className = "timer-status";
+
+    if (timerRunning) {
+
+        if (isBreak) {
+
+            status.textContent =
+                "☕ Break time — relax and recharge";
+
+            status.classList.add("break");
+
+        } else {
+
+            status.textContent =
+                "📚 Study mode — stay focused";
+
+            status.classList.add("study");
+
+        }
+
+    } else {
+
+        status.textContent =
+            "⏸ Timer paused";
+
+        status.classList.add("paused");
+
+    }
+}
+
+
+var oldStartButton =
+    document.getElementById("startTimer");
+
+var oldPauseButton =
+    document.getElementById("pauseTimer");
+
+var oldResetButton =
+    document.getElementById("resetTimer");
+
+
+if (oldStartButton) {
+
+    oldStartButton.addEventListener(
+        "click",
+        function() {
+
+            setTimeout(
+                refreshTimerStatus,
+                50
+            );
+
+        }
+    );
+
+}
+
+
+if (oldPauseButton) {
+
+    oldPauseButton.addEventListener(
+        "click",
+        function() {
+
+            setTimeout(
+                refreshTimerStatus,
+                50
+            );
+
+        }
+    );
+
+}
+
+
+if (oldResetButton) {
+
+    oldResetButton.addEventListener(
+        "click",
+        function() {
+
+            setTimeout(
+                refreshTimerStatus,
+                50
+            );
+
+        }
+    );
+
+}
+
+
+refreshTimerStatus();function updateDailyGoal() {
+
+    var goalProgress =
+        document.getElementById(
+            "goalProgress"
+        );
+
+
+    if (!goalProgress) {
+        return;
+    }
+
+
+    var completed = 0;
+
+
+    if (typeof studyTasks !== "undefined") {
+
+        for (
+            var i = 0;
+            i < studyTasks.length;
+            i++
+        ) {
+
+            if (studyTasks[i].completed) {
+
+                completed++;
+
+            }
+
+        }
+
+    }
+
+
+    var goal = 5;
+
+
+    goalProgress.textContent =
+        completed +
+        " of " +
+        goal +
+        " tasks completed";
+
+
+    if (completed >= goal) {
+
+        goalProgress.textContent =
+            "🎉 Daily goal completed!";
+
+    }
+
+}
+
+
+updateDailyGoal();function refreshDailyGoal() {
+
+    var goalProgress =
+        document.getElementById("goalProgress");
+
+    if (!goalProgress) {
+        return;
+    }
+
+    var completed = 0;
+
+    if (typeof studyTasks !== "undefined") {
+
+        for (
+            var i = 0;
+            i < studyTasks.length;
+            i++
+        ) {
+
+            if (studyTasks[i].completed) {
+                completed++;
+            }
+
+        }
+
+    }
+
+    var goal = 5;
+
+    if (completed >= goal) {
+
+        goalProgress.textContent =
+            "🎉 Daily goal completed!";
+
+    } else {
+
+        goalProgress.textContent =
+            completed +
+            " of " +
+            goal +
+            " tasks completed";
+
+    }
+
+}
+
+
+/* Check for task changes */
+
+setInterval(
+    refreshDailyGoal,
+    300
+);
+
+
+refreshDailyGoal();var themeButton =
+    document.getElementById("themeButton");
+
+
+if (themeButton) {
+
+    themeButton.onclick = function() {
+
+        document.body.classList.toggle(
+            "dark-mode"
+        );
+
+
+        if (
+            document.body.classList.contains(
+                "dark-mode"
+            )
+        ) {
+
+            themeButton.textContent = "☀️";
+
+        } else {
+
+            themeButton.textContent = "🌙";
+
+        }
+
+    };
+
+}function updateFocusStreak() {
+
+    var streakCount =
+        document.getElementById(
+            "streakCount"
+        );
+
+    if (!streakCount) {
+        return;
+    }
+
+    if (
+        typeof completedStudySessions !==
+        "undefined"
+    ) {
+
+        streakCount.textContent =
+            completedStudySessions;
+
+    } else {
+
+        streakCount.textContent =
+            "0";
+
+    }
+}
+
+
+setInterval(
+    updateFocusStreak,
+    500
+);
+
+
+updateFocusStreak();function updateFocusScore() {
+
+    var focusScore =
+        document.getElementById(
+            "focusScore"
+        );
+
+    var scoreMessage =
+        document.getElementById(
+            "scoreMessage"
+        );
+
+
+    if (!focusScore) {
+        return;
+    }
+
+
+    var score = 0;
+
+
+    if (
+        typeof studyTasks !==
+        "undefined" &&
+        studyTasks.length > 0
+    ) {
+
+        var completed = 0;
+
+
+        for (
+            var i = 0;
+            i < studyTasks.length;
+            i++
+        ) {
+
+            if (
+                studyTasks[i].completed
+            ) {
+
+                completed++;
+
+            }
+
+        }
+
+
+        score =
+            Math.round(
+                (completed /
+                studyTasks.length) * 100
+            );
+
+    }
+
+
+    focusScore.textContent =
+        score;
+
+
+    if (scoreMessage) {
+
+        if (score === 0) {
+
+            scoreMessage.textContent =
+                "Start completing tasks to improve your score.";
+
+        } else if (score < 50) {
+
+            scoreMessage.textContent =
+                "Good start! Keep going.";
+
+        } else if (score < 100) {
+
+            scoreMessage.textContent =
+                "Great work! You're making progress.";
+
+        } else {
+
+            scoreMessage.textContent =
+                "🎉 Excellent! All tasks completed.";
+
+        }
+
+    }
+
+}
+
+
+setInterval(
+    updateFocusScore,
+    500
+);
+
+
+updateFocusScore();var studyMotivations = [
+
+    "Small progress every day leads to big results. 🚀",
+
+    "Focus on the task in front of you. 📚",
+
+    "You don't have to be perfect. Just keep learning. 💪",
+
+    "One focused session can make a difference. 🎯",
+
+    "Believe in yourself and keep moving forward. 🌟",
+
+    "Your future self will thank you for studying today. 🔥",
+
+    "Learn something today that makes you better tomorrow. 🧠"
+
+];
+
+
+function showDailyMotivation() {
+
+    var motivation =
+        document.getElementById(
+            "motivationText"
+        );
+
+
+    if (!motivation) {
+        return;
+    }
+
+
+    var randomIndex =
+        Math.floor(
+            Math.random() *
+            studyMotivations.length
+        );
+
+
+    motivation.textContent =
+        studyMotivations[randomIndex];
+
+}
+
+
+showDailyMotivation();var studyTips = [
+
+    "Study in a quiet place with fewer distractions. 🤫",
+
+    "Take short breaks to keep your mind fresh. ☕",
+
+    "Put your phone away when you need deep focus. 📵",
+
+    "Break large topics into smaller sections. 📚",
+
+    "Review what you learned before starting something new. 🧠",
+
+    "Practice what you learn instead of only reading. ✍️",
+
+    "Set one clear goal before every study session. 🎯",
+
+    "Consistency is more important than studying for long hours. 🔥"
+
+];
+
+
+function showStudyTip() {
+
+    var tip =
+        document.getElementById(
+            "studyTip"
+        );
+
+
+    if (!tip) {
+        return;
+    }
+
+
+    var randomIndex =
+        Math.floor(
+            Math.random() *
+            studyTips.length
+        );
+
+
+    tip.textContent =
+        studyTips[randomIndex];
+
+}
+
+
+showStudyTip();var customTimeButton =
+    document.getElementById("setStudyTime");
+
+var customTimeInput =
+    document.getElementById("customStudyMinutes");
+
+var customTimeMessage =
+    document.getElementById("customTimeMessage");
+
+
+if (customTimeButton) {
+
+    customTimeButton.onclick = function() {
+
+        var minutes =
+            Number(customTimeInput.value);
+
+
+        if (
+            isNaN(minutes) ||
+            minutes < 1 ||
+            minutes > 180
+        ) {
+
+            customTimeMessage.textContent =
+                "Please enter a time between 1 and 180 minutes.";
+
+            return;
+
+        }
+
+
+        /*
+         * Stop the current timer
+         * before changing the duration.
+         */
+
+        if (
+            typeof smartTimerInterval !==
+            "undefined"
+        ) {
+
+            clearInterval(
+                smartTimerInterval
+            );
+
+        }
+
+
+        if (
+            typeof timerRunning !==
+            "undefined"
+        ) {
+
+            timerRunning = false;
+
+        }
+
+
+        /*
+         * Change the study duration.
+         */
+
+        studyTime =
+            minutes * 60;
+
+
+        /*
+         * Set the timer to
+         * the new study duration.
+         */
+
+        currentTime =
+            studyTime;
+
+
+        /*
+         * Make sure we return
+         * to Study Mode.
+         */
+
+        isBreak = false;
+
+
+        /*
+         * Update the timer display.
+         */
+
+        if (
+            typeof updateSmartTimerDisplay ===
+            "function"
+        ) {
+
+            updateSmartTimerDisplay();
+
+        }
+
+
+        if (
+            typeof updateSmartTimerMode ===
+            "function"
+        ) {
+
+            updateSmartTimerMode();
+
+        }
+
+
+        /*
+         * Show confirmation.
+         */
+
+        customTimeMessage.textContent =
+            "Study time: " +
+            minutes +
+            " minutes";
+
+    };
+
+}var breakTimeButton =
+    document.getElementById("setBreakTime");
+
+var breakTimeInput =
+    document.getElementById("customBreakMinutes");
+
+var breakTimeMessage =
+    document.getElementById("breakTimeMessage");
+
+
+if (breakTimeButton) {
+
+    breakTimeButton.onclick = function() {
+
+        var minutes =
+            Number(breakTimeInput.value);
+
+
+        if (
+            isNaN(minutes) ||
+            minutes < 1 ||
+            minutes > 60
+        ) {
+
+            breakTimeMessage.textContent =
+                "Please enter a time between 1 and 60 minutes.";
+
+            return;
+
+        }
+
+
+        /*
+         * Convert minutes to seconds.
+         */
+
+        breakTime =
+            minutes * 60;
+
+
+        /*
+         * If the timer is currently
+         * in Break Mode, immediately
+         * use the new break duration.
+         */
+
+        if (
+            typeof isBreak !== "undefined" &&
+            isBreak === true
+        ) {
+
+            if (
+                typeof timerRunning !==
+                "undefined" &&
+                timerRunning === false
+            ) {
+
+                currentTime =
+                    breakTime;
+
+                if (
+                    typeof updateSmartTimerDisplay ===
+                    "function"
+                ) {
+
+                    updateSmartTimerDisplay();
+
+                }
+
+            }
+
+        }
+
+
+        breakTimeMessage.textContent =
+            "Break time: " +
+            minutes +
+            " minutes";
+
+    };
+
+}var clearCompletedButton =
+    document.getElementById(
+        "clearCompletedTasks"
+    );
+
+
+if (clearCompletedButton) {
+
+    clearCompletedButton.onclick =
+        function() {
+
+            if (
+                typeof studyTasks ===
+                "undefined"
+            ) {
+                return;
+            }
+
+
+            studyTasks =
+                studyTasks.filter(
+                    function(task) {
+
+                        return !task.completed;
+
+                    }
+                );
+
+
+            if (
+                typeof renderStudyTasks ===
+                "function"
+            ) {
+
+                renderStudyTasks();
+
+            }
+
+
+            if (
+                typeof updateStudyProgress ===
+                "function"
+            ) {
+
+                updateStudyProgress();
+
+            }
+
+        };
+
+}var taskPriority =
+    document.getElementById("taskPriority");
+
+
+function getPriorityText(priority) {
+
+    if (priority === "high") {
+        return "🔴 High";
+    }
+
+    if (priority === "low") {
+        return "🟢 Low";
+    }
+
+    return "🟡 Medium";
+}
+
+
+function addTaskWithPriority() {
+
+    var taskInput =
+        document.getElementById("taskInput");
+
+    var addTaskButton =
+        document.getElementById("addTask");
+
+
+    if (
+        !taskInput ||
+        !addTaskButton ||
+        !taskPriority
+    ) {
+        return;
+    }
+
+
+    var text =
+        taskInput.value.trim();
+
+
+    if (text === "") {
+        return;
+    }
+
+
+    studyTasks.push({
+
+        text: text,
+
+        completed: false,
+
+        priority: taskPriority.value
+
+    });
+
+
+    taskInput.value = "";
+
+    taskPriority.value = "medium";
+
+
+    if (
+        typeof renderStudyTasks ===
+        "function"
+    ) {
+
+        renderStudyTasks();
+
+    }
+
+}
+
+
+if (taskPriority) {
+
+    var priorityAddButton =
+        document.getElementById("addTask");
+
+
+    if (priorityAddButton) {
+
+        priorityAddButton.onclick =
+            addTaskWithPriority;
+
+    }
+
+}function showTaskPriority(task) {
+
+    var priority =
+        task.priority || "medium";
+
+
+    var priorityBadge =
+        document.createElement("span");
+
+
+    if (priority === "high") {
+
+        priorityBadge.textContent =
+            "🔴 High";
+
+    } else if (priority === "low") {
+
+        priorityBadge.textContent =
+            "🟢 Low";
+
+    } else {
+
+        priorityBadge.textContent =
+            "🟡 Medium";
+
+    }
+
+
+    priorityBadge.className =
+        "task-priority-badge";
+
+
+    return priorityBadge;
+
+}
+
+
+function refreshTaskPriorityDisplay() {
+
+    var taskList =
+        document.getElementById("taskList");
+
+
+    if (!taskList ||
+        typeof studyTasks === "undefined") {
+
+        return;
+
+    }
+
+
+    var taskItems =
+        taskList.querySelectorAll("li");
+
+
+    for (
+        var i = 0;
+        i < taskItems.length &&
+        i < studyTasks.length;
+        i++
+    ) {
+
+        var oldBadge =
+            taskItems[i].querySelector(
+                ".task-priority-badge"
+            );
+
+
+        if (oldBadge) {
+
+            oldBadge.remove();
+
+        }
+
+
+        var badge =
+            showTaskPriority(
+                studyTasks[i]
+            );
+
+
+        taskItems[i].appendChild(
+            badge
+        );
+
+    }
+
+}
+
+
+setInterval(
+    refreshTaskPriorityDisplay,
+    300
+);
+
+
+refreshTaskPriorityDisplay();function updateWeeklyStatistics() {
+
+    var weeklySessions =
+        document.getElementById(
+            "weeklySessions"
+        );
+
+    var weeklyTasks =
+        document.getElementById(
+            "weeklyTasks"
+        );
+
+    var weeklyProgress =
+        document.getElementById(
+            "weeklyProgress"
+        );
+
+
+    if (
+        !weeklySessions ||
+        !weeklyTasks ||
+        !weeklyProgress
+    ) {
+
+        return;
+
+    }
+
+
+    var sessions = 0;
+
+
+    if (
+        typeof completedStudySessions !==
+        "undefined"
+    ) {
+
+        sessions =
+            completedStudySessions;
+
+    }
+
+
+    var completedTasks = 0;
+    var totalTasks = 0;
+
+
+    if (
+        typeof studyTasks !==
+        "undefined"
+    ) {
+
+        totalTasks =
+            studyTasks.length;
+
+
+        for (
+            var i = 0;
+            i < studyTasks.length;
+            i++
+        ) {
+
+            if (
+                studyTasks[i].completed
+            ) {
+
+                completedTasks++;
+
+            }
+
+        }
+
+    }
+
+
+    var progress = 0;
+
+
+    if (totalTasks > 0) {
+
+        progress =
+            Math.round(
+                (completedTasks /
+                totalTasks) * 100
+            );
+
+    }
+
+
+    weeklySessions.textContent =
+        sessions;
+
+    weeklyTasks.textContent =
+        completedTasks;
+
+    weeklyProgress.textContent =
+        progress + "%";
+
+}
+
+
+setInterval(
+    updateWeeklyStatistics,
+    500
+);
+
+
+updateWeeklyStatistics();function updateProgressStatistics() {
+
+    var completedStat =
+        document.getElementById(
+            "completedTaskStat"
+        );
+
+    var remainingStat =
+        document.getElementById(
+            "remainingTaskStat"
+        );
+
+    var completedBar =
+        document.getElementById(
+            "completedTaskBar"
+        );
+
+    var remainingBar =
+        document.getElementById(
+            "remainingTaskBar"
+        );
+
+    var overallPercentage =
+        document.getElementById(
+            "overallTaskPercentage"
+        );
+
+
+    if (
+        !completedStat ||
+        !remainingStat ||
+        !completedBar ||
+        !remainingBar ||
+        !overallPercentage
+    ) {
+
+        return;
+
+    }
+
+
+    var totalTasks = 0;
+
+    var completedTasks = 0;
+
+
+    if (
+        typeof studyTasks !==
+        "undefined"
+    ) {
+
+        totalTasks =
+            studyTasks.length;
+
+
+        for (
+            var i = 0;
+            i < studyTasks.length;
+            i++
+        ) {
+
+            if (
+                studyTasks[i].completed
+            ) {
+
+                completedTasks++;
+
+            }
+
+        }
+
+    }
+
+
+    var remainingTasks =
+        totalTasks -
+        completedTasks;
+
+
+    var completedPercentage = 0;
+
+    var remainingPercentage = 0;
+
+
+    if (totalTasks > 0) {
+
+        completedPercentage =
+            Math.round(
+                (completedTasks /
+                totalTasks) * 100
+            );
+
+        remainingPercentage =
+            100 -
+            completedPercentage;
+
+    }
+
+
+    completedStat.textContent =
+        completedTasks;
+
+    remainingStat.textContent =
+        remainingTasks;
+
+
+    completedBar.style.width =
+        completedPercentage + "%";
+
+    remainingBar.style.width =
+        remainingPercentage + "%";
+
+
+    overallPercentage.textContent =
+        completedPercentage + "%";
+
+}
+
+
+setInterval(
+    updateProgressStatistics,
+    500
+);
+
+
+updateProgressStatistics();var taskSearch =
+    document.getElementById("taskSearch");
+
+var taskFilter =
+    document.getElementById("taskFilter");
+
+
+function filterStudyTasks() {
+
+    if (
+        !taskSearch ||
+        !taskFilter ||
+        typeof studyTasks ===
+        "undefined"
+    ) {
+        return;
+    }
+
+
+    var searchText =
+        taskSearch.value
+            .toLowerCase()
+            .trim();
+
+    var filter =
+        taskFilter.value;
+
+
+    var taskItems =
+        document
+            .getElementById("taskList")
+            .querySelectorAll("li");
+
+
+    for (
+        var i = 0;
+        i < studyTasks.length;
+        i++
+    ) {
+
+        var task =
+            studyTasks[i];
+
+        var taskText =
+            String(
+                task.text ||
+                task.name ||
+                ""
+            ).toLowerCase();
+
+
+        var matchesSearch =
+            taskText.includes(
+                searchText
+            );
+
+
+        var matchesFilter = true;
+
+
+        if (filter === "completed") {
+
+            matchesFilter =
+                task.completed === true;
+
+        } else if (
+            filter === "high" ||
+            filter === "medium" ||
+            filter === "low"
+        ) {
+
+            matchesFilter =
+                (task.priority ||
+                "medium") === filter;
+
+        }
+
+
+        if (taskItems[i]) {
+
+            taskItems[i].style.display =
+                matchesSearch &&
+                matchesFilter
+                    ? ""
+                    : "none";
+
+        }
+
+    }
+
+}
+
+
+if (taskSearch) {
+
+    taskSearch.addEventListener(
+        "input",
+        filterStudyTasks
+    );
+
+}
+
+
+if (taskFilter) {
+
+    taskFilter.addEventListener(
+        "change",
+        filterStudyTasks
+    );
+
+}
+
+
+filterStudyTasks();/* =========================================
+   STEP 29 — TIMER COMPLETION NOTIFICATIONS
+   ========================================= */
+
+function requestStudyNotificationPermission() {
+
+    if (
+        "Notification" in window &&
+        Notification.permission === "default"
+    ) {
+
+        Notification.requestPermission();
+
+    }
+
+}
+
+
+/* Ask for permission when the user
+   first interacts with the page */
+
+document.addEventListener(
+    "click",
+    requestStudyNotificationPermission,
+    {
+        once: true
+    }
+);
+
+
+/* Play a short notification sound */
+
+function playStudyNotificationSound() {
+
+    try {
+
+        var audioContext =
+            new (
+                window.AudioContext ||
+                window.webkitAudioContext
+            )();
+
+        var oscillator =
+            audioContext.createOscillator();
+
+        var gain =
+            audioContext.createGain();
+
+
+        oscillator.connect(gain);
+
+        gain.connect(
+            audioContext.destination
+        );
+
+
+        oscillator.frequency.value =
+            880;
+
+        oscillator.type =
+            "sine";
+
+
+        gain.gain.setValueAtTime(
+            0.0001,
+            audioContext.currentTime
+        );
+
+
+        gain.gain.exponentialRampToValueAtTime(
+            0.25,
+            audioContext.currentTime + 0.03
+        );
+
+
+        gain.gain.exponentialRampToValueAtTime(
+            0.0001,
+            audioContext.currentTime + 0.6
+        );
+
+
+        oscillator.start();
+
+        oscillator.stop(
+            audioContext.currentTime + 0.6
+        );
+
+    } catch (error) {
+
+        console.log(
+            "Notification sound unavailable."
+        );
+
+    }
+
+}
+
+
+/* Show notification */
+
+function showStudyTimerNotification(
+    title,
+    message
+) {
+
+    playStudyNotificationSound();
+
+
+    if (
+        "Notification" in window &&
+        Notification.permission === "granted"
+    ) {
+
+        new Notification(
+            title,
+            {
+                body: message,
+                icon: "🔔"
+            }
+        );
+
+    } else {
+
+        /* Fallback for environments
+           that block notifications */
+
+        alert(
+            title +
+            "\n\n" +
+            message
+        );
+
+    }
+
+}
+
+
+/* Study session completed */
+
+function notifyStudyComplete() {
+
+    showStudyTimerNotification(
+        "📚 Study Complete!",
+        "Great work! Your study session is finished. Time for a break."
+    );
+
+}
+
+
+/* Break completed */
+
+function notifyBreakComplete() {
+
+    showStudyTimerNotification(
+        "☕ Break Over!",
+        "Your break is finished. Time to get back to studying!"
+    );
+
+}/* =========================================
+   AUTOMATIC TIMER COMPLETION CHECK
+   ========================================= */
+
+var lastKnownTimerValue = null;
+var lastKnownBreakState = null;
+
+
+setInterval(function() {
+
+    if (
+        typeof currentTime ===
+        "undefined"
+    ) {
+        return;
+    }
+
+
+    if (
+        typeof isBreak ===
+        "undefined"
+    ) {
+        return;
+    }
+
+
+    /*
+     * Detect when timer reaches zero.
+     */
+
+    if (
+        currentTime === 0 &&
+        lastKnownTimerValue !== 0
+    ) {
+
+        if (isBreak) {
+
+            notifyBreakComplete();
+
+        } else {
+
+            notifyStudyComplete();
+
+        }
+
+    }
+
+
+    lastKnownTimerValue =
+        currentTime;
+
+    lastKnownBreakState =
+        isBreak;
+
+
+}, 300);
+  </script>
+</body>
+</html>

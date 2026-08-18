@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>pra333</title>
+  <style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: #eef2ff;
+
+    font-family: Arial, sans-serif;
+}
+
+.todo-app {
+    width: 90%;
+    max-width: 500px;
+
+    padding: 25px;
+
+    background: white;
+
+    border-radius: 16px;
+
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+}
+
+h1 {
+    margin-top: 0;
+    margin-bottom: 25px;
+
+    text-align: center;
+
+    font-size: 28px;
+}
+
+.todo-input {
+    display: flex;
+    gap: 10px;
+}
+
+#taskInput {
+    flex: 1;
+
+    min-width: 0;
+
+    padding: 13px;
+
+    border: 1px solid #d1d5db;
+
+    border-radius: 8px;
+
+    font-size: 16px;
+
+    outline: none;
+}
+
+#taskInput:focus {
+    border-color: #2563eb;
+}
+
+#addButton {
+    padding: 13px 20px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    background: #2563eb;
+
+    color: white;
+
+    font-size: 16px;
+
+    cursor: pointer;
+}
+
+#addButton:active {
+    transform: scale(0.96);
+}
+
+#taskList {
+    margin-top: 25px;
+}
+
+.task {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    margin-bottom: 10px;
+
+    padding: 12px;
+
+    background: #f3f4f6;
+
+    border-radius: 10px;
+}
+
+.task-text {
+    flex: 1;
+
+    word-break: break-word;
+
+    font-size: 16px;
+}
+
+.completed {
+    text-decoration: line-through;
+
+    opacity: 0.5;
+}
+
+.complete-button,
+.delete-button {
+    border: none;
+
+    border-radius: 7px;
+
+    padding: 8px 10px;
+
+    cursor: pointer;
+
+    font-size: 16px;
+}
+
+.complete-button {
+    background: #dbeafe;
+}
+
+.delete-button {
+    background: #fee2e2;
+}
+
+.complete-button:active,
+.delete-button:active {
+    transform: scale(0.9);
+}
+
+
+/* Mobile */
+
+@media (max-width: 500px) {
+
+    .todo-app {
+        width: 94%;
+
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+
+    .todo-input {
+        flex-direction: column;
+    }
+
+    #taskInput {
+        width: 100%;
+    }
+
+    #addButton {
+        width: 100%;
+    }
+
+    .task {
+        padding: 10px;
+    }
+
+    .task-text {
+        font-size: 14px;
+    }
+
+}
+  </style>
+</head>
+<body>
+<div class="todo-app">
+
+    <h1>My To-Do List</h1>
+
+    <div class="todo-input">
+
+        <input
+            type="text"
+            id="taskInput"
+            placeholder="Enter a task..."
+        >
+
+        <button id="addButton">
+            Add
+        </button>
+
+    </div>
+
+    <div id="taskList"></div>
+
+</div>
+  <script>
+var taskInput = document.getElementById("taskInput");
+
+var addButton = document.getElementById("addButton");
+
+var taskList = document.getElementById("taskList");
+
+
+function addTask() {
+
+    var text = taskInput.value.trim();
+
+
+    if (text === "") {
+
+        return;
+
+    }
+
+
+    var task = document.createElement("div");
+
+    task.className = "task";
+
+
+    var taskText = document.createElement("span");
+
+    taskText.className = "task-text";
+
+    taskText.textContent = text;
+
+
+    var completeButton =
+        document.createElement("button");
+
+    completeButton.className =
+        "complete-button";
+
+    completeButton.textContent = "✓";
+
+
+    completeButton.onclick = function () {
+
+        taskText.classList.toggle(
+            "completed"
+        );
+
+    };
+
+
+    var deleteButton =
+        document.createElement("button");
+
+    deleteButton.className =
+        "delete-button";
+
+    deleteButton.textContent = "🗑";
+
+
+    deleteButton.onclick = function () {
+
+        task.remove();
+
+    };
+
+
+    task.appendChild(taskText);
+
+    task.appendChild(completeButton);
+
+    task.appendChild(deleteButton);
+
+
+    taskList.appendChild(task);
+
+
+    taskInput.value = "";
+
+}
+
+
+addButton.onclick = function () {
+
+    addTask();
+
+};
+
+
+taskInput.onkeydown = function (event) {
+
+    if (event.key === "Enter") {
+
+        addTask();
+
+    }
+
+};
+  </script>
+</body>
+</html>
